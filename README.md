@@ -1,4 +1,4 @@
-# mdformat-plugin
+# mdformat-pelican
 
 [![Build Status][ci-badge]][ci-link]
 [![codecov.io][cov-badge]][cov-link]
