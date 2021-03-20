@@ -3,11 +3,11 @@ requires = ["flit_core >=2,<4"]
 build-backend = "flit_core.buildapi"
 
 [tool.flit.metadata]
-module = "mdformat_plugin"
-author = "Chris Sewell"
-author-email = "executablebooks@gmail.com"
+module = "mdformat_pelican"
+author = "Gaige B. Paulsen"
+author-email = "gaige@cluetrust.com"
 description-file = "README.md"
-home-page = "https://github.com/executablebooks/mdformat-plugin"
+home-page = "https://github.com/gaige/mdformat-pelican"
 classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",

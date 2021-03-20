@@ -62,9 +62,9 @@ or trigger the GitHub Action job, by creating a release with a tag equal to the 
 
 Note, this requires generating an API key on PyPi and adding it to the repository `Settings/Secrets`, under the name `PYPI_KEY`.
 
-[ci-badge]: https://github.com/executablebooks/mdformat-plugin/workflows/CI/badge.svg?branch=master
-[ci-link]: https://github.com/executablebooks/mdformat/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush
-[cov-badge]: https://codecov.io/gh/executablebooks/mdformat-plugin/branch/master/graph/badge.svg
-[cov-link]: https://codecov.io/gh/executablebooks/mdformat-plugin
-[pypi-badge]: https://img.shields.io/pypi/v/mdformat-plugin.svg
-[pypi-link]: https://pypi.org/project/mdformat-plugin
+[ci-badge]: https://github.com/gaige/mdformat-pelican/workflows/CI/badge.svg?branch=master
+[ci-link]: https://github.com/gaige/mdformat-pelican/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush
+[cov-badge]: https://codecov.io/gh/gaige/mdformat-pelican/branch/master/graph/badge.svg
+[cov-link]: https://codecov.io/gh/gaige/mdformat-pelican
+[pypi-badge]: https://img.shields.io/pypi/v/mdformat-pelican.svg
+[pypi-link]: https://pypi.org/project/mdformat-pelican
