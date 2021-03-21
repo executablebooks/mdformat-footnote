@@ -28,7 +28,6 @@ def render_token(
         return None
     elif token.type == "footnote_ref":
         content = f"[^{token.meta['label']}]" + token.content
-        print(token)
     elif token.type == "footnote_block_open":
         # skip as we're not doing anything special
         # maybe check for empty line before later
