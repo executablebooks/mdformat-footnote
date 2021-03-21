@@ -8,4 +8,4 @@ repos:
       types: [markdown]
       language: python
       additional_dependencies:
-        - mdformat-footnote
+        - mdformat_footnote
