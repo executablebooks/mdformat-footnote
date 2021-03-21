@@ -1,4 +1,4 @@
-# mdformat-pelican
+# mdformat-footnote
 
 [![Build Status][ci-badge]][ci-link]
 [![codecov.io][cov-badge]][cov-link]
@@ -25,7 +25,7 @@ tox
 and with test coverage:
 
 ```bash
-tox -e py37-cov
+tox -e py39-cov
 ```
 
 The easiest way to write tests, is to edit tests/fixtures.md
@@ -33,7 +33,7 @@ The easiest way to write tests, is to edit tests/fixtures.md
 To run the code formatting and style checks:
 
 ```bash
-tox -e py37-pre-commit
+tox -e py39-pre-commit
 ```
 
 or directly
@@ -46,7 +46,7 @@ pre-commit run --all
 To run the pre-commit hook test:
 
 ```bash
-tox -e py37-hook
+tox -e py39-hook
 ```
 
 ## Publish to PyPi
@@ -62,9 +62,9 @@ or trigger the GitHub Action job, by creating a release with a tag equal to the 
 
 Note, this requires generating an API key on PyPi and adding it to the repository `Settings/Secrets`, under the name `PYPI_KEY`.
 
-[ci-badge]: https://github.com/gaige/mdformat-pelican/workflows/CI/badge.svg?branch=master
-[ci-link]: https://github.com/gaige/mdformat-pelican/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush
-[cov-badge]: https://codecov.io/gh/gaige/mdformat-pelican/branch/master/graph/badge.svg
-[cov-link]: https://codecov.io/gh/gaige/mdformat-pelican
-[pypi-badge]: https://img.shields.io/pypi/v/mdformat-pelican.svg
-[pypi-link]: https://pypi.org/project/mdformat-pelican
+[ci-badge]: https://github.com/gaige/mdformat-footnote/workflows/CI/badge.svg?branch=master
+[ci-link]: https://github.com/gaige/mdformat-footnote/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush
+[cov-badge]: https://codecov.io/gh/gaige/mdformat-footnote/branch/master/graph/badge.svg
+[cov-link]: https://codecov.io/gh/gaige/mdformat-footnote
+[pypi-badge]: https://img.shields.io/pypi/v/mdformat-footnote.svg
+[pypi-link]: https://pypi.org/project/mdformat-footnote

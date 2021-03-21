@@ -7,7 +7,7 @@ module = "mdformat_footnote"
 author = "Gaige B. Paulsen"
 author-email = "gaige@cluetrust.com"
 description-file = "README.md"
-home-page = "https://github.com/gaige/mdformat-pelican"
+home-page = "https://github.com/gaige/mdformat-footnote"
 classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
