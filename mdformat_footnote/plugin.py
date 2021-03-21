@@ -37,7 +37,6 @@ def render_token(
         content = MARKERS.BLOCK_SEPARATOR
         return None
     elif token.type == "footnote_open":
-        print(token)
         index += 1
         inner_tokens = []
         while index < len(tokens) and tokens[index].type != "footnote_close":
@@ -47,12 +46,10 @@ def render_token(
             inner_tokens, options, env, finalize=False
         )
         token = tokens[index]
-        print(token)
     elif token.type == "footnote_close":
         # make sure we have a line at the end
         return None
     else:
         return None
-    #        mdformat.renderer.LOGGER.warning("Invalid YAML in a front matter block")
 
     return content, index
