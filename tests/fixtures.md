@@ -17,17 +17,28 @@ Some *markdown*
 .
 Some *markdown*
 
-* a
-* b
+- a
+- b
 
-- c
+* c
 .
 
-Test pelican filename reference
+Test Footnotes
 .
 # Now some markdown
-[link]({filename}local/ref)
+Here is a footnote reference,[^1] and another.[^longnote]
+[^1]: Here is the footnote.
+[^longnote]: Here's one with multiple blocks.
+    Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
 .
 # Now some markdown
-[link]({filename}local/ref)
+
+Here is a footnote reference,[^1] and another.[^longnote]
+
+[^1]: Here is the footnote.
+
+[^longnote]: Here's one with multiple blocks.
+Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
 .

@@ -1,4 +1,4 @@
-"""An mdformat plugin for..."""
+"""An mdformat plugin for parsing/validating footnotes"""
 
 from .plugin import render_token, update_mdit  # noqa: F401
 
