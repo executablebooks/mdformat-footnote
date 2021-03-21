@@ -1,3 +1,5 @@
-# Test file
+# Basic test
 
-add your syntax here
+This was a test[^1].
+
+[^1] Here you go
