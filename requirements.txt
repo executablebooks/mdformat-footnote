@@ -1,2 +1,4 @@
 flit
 tox
+pytest
+mdformat

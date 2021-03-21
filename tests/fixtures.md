@@ -22,3 +22,12 @@ Some *markdown*
 
 - c
 .
+
+Test pelican filename reference
+.
+# Now some markdown
+[link]({filename}local/ref)
+.
+# Now some markdown
+[link]({filename}local/ref)
+.

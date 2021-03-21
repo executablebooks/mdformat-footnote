@@ -28,7 +28,7 @@ test = [
 dev = ["pre-commit"]
 
 [tool.flit.entrypoints."mdformat.parser_extension"]
-plugin = "mdformat_pelican"
+"pelican" = "mdformat_pelican.plugin"
 
 [tool.flit.sdist]
 include = []
