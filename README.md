@@ -4,7 +4,7 @@
 [![codecov.io][cov-badge]][cov-link]
 [![PyPI version][pypi-badge]][pypi-link]
 
-An [mdformat](https://github.com/executablebooks/mdformat) plugin for...
+Footnote format addition for [mdformat](https://github.com/executablebooks/mdformat).
 
 ## Development
 
