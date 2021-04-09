@@ -4,7 +4,6 @@ repos:
   hooks:
   - id: end-of-file-fixer
   - id: mixed-line-ending
-  - id: trailing-whitespace
   - id: check-yaml
   - id: check-toml
 - repo: https://github.com/pre-commit/pygrep-hooks
