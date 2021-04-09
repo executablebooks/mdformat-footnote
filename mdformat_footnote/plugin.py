@@ -43,10 +43,8 @@ def _render_children(
     renderer_funcs: Mapping[str, RendererFunc],
     options: Mapping,
     env: MutableMapping,
-    *,
-    separator: str = "\n\n",
 ) -> str:
-    return separator.join(
+    return "\n\n".join(
         child.render(renderer_funcs, options, env) for child in node.children
     )
 
