@@ -9,6 +9,9 @@ from mdit_py_plugins.footnote import footnote_plugin
 def update_mdit(mdit: MarkdownIt) -> None:
     """Update the parser, adding the footnote plugin."""
     mdit.use(footnote_plugin)
+    # Disable inline footnotes for now, since we don't have rendering
+    # support for them yet.
+    mdit.disable("footnote_inline")
 
 
 def _footnote_ref_renderer(
