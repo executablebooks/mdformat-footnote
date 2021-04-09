@@ -26,9 +26,16 @@ def _footnote_renderer(
     options: Mapping,
     env: MutableMapping,
 ) -> str:
-    return f"[^{node.meta['label']}]: " + _render_children(
-        node, renderer_funcs, options, env, separator=""
-    )
+    text = f"[^{node.meta['label']}]: "
+    child_iterator = iter(node.children)
+    first_child = next(child_iterator)
+    if first_child.type == "footnote_anchor":
+        return text
+    else:
+        text += first_child.render(renderer_funcs, options, env)
+    for child in child_iterator:
+        text += "\n\n    " + child.render(renderer_funcs, options, env)
+    return text
 
 
 def _render_children(
