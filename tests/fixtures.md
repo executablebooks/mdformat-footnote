@@ -7,6 +7,7 @@ This is the input Markdown test,
 then below add the expected output.
 .
 
+
 another test
 .
 Some *markdown*
@@ -22,6 +23,7 @@ Some *markdown*
 
 * c
 .
+
 
 Test Footnotes
 .
@@ -49,6 +51,7 @@ belong to the previous footnote.
     Third paragraph here.
 .
 
+
 Empty footnote
 .
 Here is a footnote reference [^emptynote]
@@ -58,4 +61,25 @@ Here is a footnote reference [^emptynote]
 Here is a footnote reference [^emptynote]
 
 [^emptynote]: 
+.
+
+
+Move footnote definitions to the end (but before link ref defs)
+.
+[link]: https://www.python.org
+[^1]: Here is the footnote.
+
+# Now we reference them
+Here is a footnote reference[^1]
+Here is a [link]
+
+.
+# Now we reference them
+
+Here is a footnote reference[^1]
+Here is a [link]
+
+[^1]: Here is the footnote.
+
+[link]: https://www.python.org
 .
