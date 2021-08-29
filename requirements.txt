@@ -1,5 +1,5 @@
 flit
 tox
 pytest
-mdformat >=0.5.3,<0.6.0
+mdformat >=0.7.0,<0.8.0
 mdit_py_plugins

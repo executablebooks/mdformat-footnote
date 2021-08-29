@@ -1,54 +1,42 @@
-from typing import List, Optional, Tuple
+from typing import Mapping
 
 from markdown_it import MarkdownIt
-from markdown_it.token import Token
-from mdformat.renderer import MARKERS, MDRenderer
+from mdformat.renderer import RenderContext, RenderTreeNode
+from mdformat.renderer.typing import Render
 from mdit_py_plugins.footnote import footnote_plugin
 
 
 def update_mdit(mdit: MarkdownIt) -> None:
-    """Update the parser, e.g. by adding a plugin: `mdit.use(myplugin)`"""
+    """Update the parser, adding the footnote plugin."""
     mdit.use(footnote_plugin)
+    # Disable inline footnotes for now, since we don't have rendering
+    # support for them yet.
+    mdit.disable("footnote_inline")
 
 
-def render_token(
-    renderer: MDRenderer,
-    tokens: List[Token],
-    index: int,
-    options: dict,
-    env: dict,
-) -> Optional[Tuple[str, int]]:
-    """Convert token(s) to a string, or return None if no render method available.
+def _footnote_ref_renderer(node: RenderTreeNode, context: RenderContext) -> str:
+    return f"[^{node.meta['label']}]"
 
-    :returns: (text, index) where index is of the final "consumed" token
-    """
-    token = tokens[index]
-    if token.type == "footnote_anchor":
-        # skip as this is just the jump-back
-        return None
-    elif token.type == "footnote_ref":
-        content = f"[^{token.meta['label']}]" + token.content
-    elif token.type == "footnote_block_open":
-        # skip as we're not doing anything special
-        # maybe check for empty line before later
-        return None
-    elif token.type == "footnote_block_close":
-        content = MARKERS.BLOCK_SEPARATOR
-        return None
-    elif token.type == "footnote_open":
-        index += 1
-        inner_tokens = []
-        while index < len(tokens) and tokens[index].type != "footnote_close":
-            inner_tokens.append(tokens[index])
-            index += 1
-        content = f"[^{token.meta['label']}]: " + renderer.render(
-            inner_tokens, options, env, finalize=False
-        )
-        token = tokens[index]
-    elif token.type == "footnote_close":
-        # make sure we have a line at the end
-        return None
+
+def _footnote_renderer(node: RenderTreeNode, context: RenderContext) -> str:
+    text = f"[^{node.meta['label']}]: "
+    child_iterator = iter(node.children)
+    first_child = next(child_iterator)
+    if first_child.type == "footnote_anchor":
+        return text
     else:
-        return None
+        text += first_child.render(context)
+    for child in child_iterator:
+        text += "\n\n    " + child.render(context)
+    return text
 
-    return content, index
+
+def _render_children(node: RenderTreeNode, context: RenderContext) -> str:
+    return "\n\n".join(child.render(context) for child in node.children)
+
+
+RENDERERS: Mapping[str, Render] = {
+    "footnote": _footnote_renderer,
+    "footnote_ref": _footnote_ref_renderer,
+    "footnote_block": _render_children,
+}
