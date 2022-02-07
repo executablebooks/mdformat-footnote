@@ -21,12 +21,14 @@ def _footnote_ref_renderer(node: RenderTreeNode, context: RenderContext) -> str:
 
 def _footnote_renderer(node: RenderTreeNode, context: RenderContext) -> str:
     first_line = f"[^{node.meta['label']}]:"
+    indent = " " * 4
     elements = []
-    for child in node.children:
-        if child.type == "footnote_anchor":
-            continue
-        elements.append(child.render(context))
-    body = textwrap.indent("\n\n".join(elements), " " * 4)
+    with context.indented(len(indent)):
+        for child in node.children:
+            if child.type == "footnote_anchor":
+                continue
+            elements.append(child.render(context))
+    body = textwrap.indent("\n\n".join(elements), indent)
     # if the first body element is a paragraph, we can start on the first line,
     # otherwise we start on the second line
     if body and node.children and node.children[0].type != "paragraph":
