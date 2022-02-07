@@ -1,4 +1,6 @@
-from typing import Mapping
+from __future__ import annotations
+
+from collections.abc import Mapping
 
 from markdown_it import MarkdownIt
 from mdformat.renderer import RenderContext, RenderTreeNode
