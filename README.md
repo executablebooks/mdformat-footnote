@@ -25,7 +25,7 @@ tox
 and with test coverage:
 
 ```bash
-tox -e py39-cov
+tox -e py310-cov
 ```
 
 The easiest way to write tests, is to edit tests/fixtures.md
@@ -33,7 +33,7 @@ The easiest way to write tests, is to edit tests/fixtures.md
 To run the code formatting and style checks:
 
 ```bash
-tox -e py39-pre-commit
+tox -e py310-pre-commit
 ```
 
 or directly
@@ -46,7 +46,7 @@ pre-commit run --all
 To run the pre-commit hook test:
 
 ```bash
-tox -e py39-hook
+tox -e py310-hook
 ```
 
 ## Publish to PyPi
