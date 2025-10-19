@@ -52,7 +52,7 @@ tox -e py310-hook
 ## Publish to PyPi
 
 Publishing is handled using a trusted action as part of the release process. Authetication is via OIDC
-and should be triggered through by creating a release with a tag equal to the version, e.g. `v0.0.1`.
+and should be triggered by creating a release with a tag equal to the version, e.g. `v0.0.1`.
 
 Maintainer note: this is configured in PyPI as a trusted repository.
 
