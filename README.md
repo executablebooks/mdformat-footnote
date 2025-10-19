@@ -54,7 +54,7 @@ tox -e py310-hook
 Publishing is handled using a trusted action as part of the release process. Authetication is via OIDC
 and should be triggered through by creating a release with a tag equal to the version, e.g. `v0.0.1`.
 
-Maintainer note: this is configured in PyPi as a trusted repository.
+Maintainer note: this is configured in PyPI as a trusted repository.
 
 [ci-badge]: https://github.com/gaige/mdformat-footnote/workflows/CI/badge.svg?branch=master
 [ci-link]: https://github.com/gaige/mdformat-footnote/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush
