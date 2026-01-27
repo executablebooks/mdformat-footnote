@@ -56,11 +56,11 @@ Empty footnote
 .
 Here is a footnote reference [^emptynote]
 
-[^emptynote]: 
+[^emptynote]:
 .
 Here is a footnote reference [^emptynote]
 
-[^emptynote]: 
+[^emptynote]:
 .
 
 
@@ -115,4 +115,91 @@ unindented next line
     ```
     content
     ```
+.
+
+
+footnote-ref-inside-footnote (issue #7)
+.
+[^a]: lorem
+[^c]: ipsum [^a]
+.
+[^a]: lorem
+
+[^c]: ipsum [^a]
+.
+
+
+nested-footnote-refs (issue #8)
+.
+[^a]: Lorem. [^b]
+
+[^b]: Ipsum.
+
+A [^b]
+.
+A [^b]
+
+[^a]: Lorem. [^b]
+
+[^b]: Ipsum.
+.
+
+
+Footnote in table nested in admonition (issue #22)
+.
+# Document
+
+| Color |
+| ------ |
+| R [^1] |
+| G [^2] |
+| B [^3] |
+
+```{tip}
+| Color |
+| ------ |
+| C [^4] |
+| M [^5] |
+| Y [^6] |
+```
+
+[^1]: Red
+
+[^2]: Green
+
+[^3]: Blue
+
+[^4]: Cyan
+
+[^5]: Magenta
+
+[^6]: Yellow
+.
+# Document
+
+| Color |
+| ------ |
+| R [^1] |
+| G [^2] |
+| B [^3] |
+
+```{tip}
+| Color |
+| ------ |
+| C [^4] |
+| M [^5] |
+| Y [^6] |
+```
+
+[^1]: Red
+
+[^2]: Green
+
+[^3]: Blue
+
+[^4]: Cyan
+
+[^5]: Magenta
+
+[^6]: Yellow
 .
