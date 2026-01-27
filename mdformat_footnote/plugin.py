@@ -24,19 +24,30 @@ def _footnote_ref_renderer(node: RenderTreeNode, context: RenderContext) -> str:
 def _footnote_renderer(node: RenderTreeNode, context: RenderContext) -> str:
     first_line = f"[^{node.meta['label']}]:"
     indent = " " * 4
-    elements = []
+
+    children = [c for c in node.children if c.type != "footnote_anchor"]
+
+    if children and children[0].type == "paragraph":
+        with context.indented(len(first_line) + 1):
+            first_element = children[0].render(context)
+
+        first_para_first_line, *first_para_rest_lines = first_element.split("\n")
+
+        with context.indented(len(indent)):
+            elements = [child.render(context) for child in children[1:]]
+
+        result = first_line + " " + first_para_first_line
+        if first_para_rest_lines:
+            result += "\n" + textwrap.indent("\n".join(first_para_rest_lines), indent)
+        if elements:
+            result += "\n\n" + textwrap.indent("\n\n".join(elements), indent)
+        return result
+
     with context.indented(len(indent)):
-        for child in node.children:
-            if child.type == "footnote_anchor":
-                continue
-            elements.append(child.render(context))
+        elements = [child.render(context) for child in children]
     body = textwrap.indent("\n\n".join(elements), indent)
-    # if the first body element is a paragraph, we can start on the first line,
-    # otherwise we start on the second line
-    if body and node.children and node.children[0].type != "paragraph":
+    if body:
         body = "\n" + body
-    else:
-        body = " " + body.lstrip()
     return first_line + body
 
 
