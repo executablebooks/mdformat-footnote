@@ -1,6 +1,7 @@
 """All fixture-based tests for mdformat-footnote."""
 
 from pathlib import Path
+import re
 
 from fixture_helpers import load_fixtures
 import mdformat
@@ -10,6 +11,8 @@ import pytest
 def _get_options(filename: str, title: str) -> dict:
     """Determine mdformat options based on fixture file and title."""
     if filename == "word_wrap.md":
+        if match := re.search(r"wrap at (\d+)", title):
+            return {"wrap": int(match.group(1))}
         return {"wrap": 40}
     if "keep orphans" in title.lower():
         return {"keep_orphans": True}
