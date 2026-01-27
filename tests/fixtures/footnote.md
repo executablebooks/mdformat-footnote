@@ -124,8 +124,6 @@ footnote-ref-inside-footnote (issue #7)
 [^c]: ipsum [^a]
 .
 [^a]: lorem
-
-[^c]: ipsum [^a]
 .
 
 
@@ -138,8 +136,6 @@ nested-footnote-refs (issue #8)
 A [^b]
 .
 A [^b]
-
-[^a]: Lorem. [^b]
 
 [^b]: Ipsum.
 .
@@ -196,12 +192,6 @@ Footnote in table nested in admonition (issue #22)
 [^2]: Green
 
 [^3]: Blue
-
-[^4]: Cyan
-
-[^5]: Magenta
-
-[^6]: Yellow
 .
 
 
@@ -229,11 +219,7 @@ Referenced [^used]
 .
 Referenced [^used]
 
-[^orphan]: This is never referenced
-
 [^used]: This is used
-
-[^another-orphan]: Also unused
 .
 
 
@@ -249,11 +235,11 @@ Start [^a]
 .
 Start [^a]
 
-[^a]: References B [^b]
-
 [^b]: References C [^c]
 
 [^c]: Final one
+
+[^a]: References B [^b]
 .
 
 
@@ -267,9 +253,9 @@ Text [^a] then [^z] then [^a] again
 .
 Text [^a] then [^z] then [^a] again
 
-[^z]: Defined first
-
 [^a]: Defined second
+
+[^z]: Defined first
 .
 
 
@@ -301,12 +287,12 @@ Text [^outer]
 .
 Text [^outer]
 
+[^inner]: Inner content
+
 [^outer]: List item:
 
     - Item with [^inner] reference
     - Another item
-
-[^inner]: Inner content
 .
 
 
@@ -378,11 +364,11 @@ Body [^m] [^a] [^z] [^m]
 .
 Body [^m] [^a] [^z] [^m]
 
-[^z]: Last defined [^a]
+[^a]: First defined [^m]
 
 [^m]: Middle defined
 
-[^a]: First defined [^m]
+[^z]: Last defined [^a]
 .
 
 
@@ -441,11 +427,7 @@ Body [^used-second] [^used-first]
 
 [^used-first]: Used
 
-[^orphan-1]: Never used
-
 [^used-second]: Also used [^used-first]
-
-[^orphan-2]: Also never used
 .
 
 
