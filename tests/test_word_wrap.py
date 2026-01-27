@@ -13,10 +13,9 @@ def test_word_wrap():
     expected_output = """\
 [^a]
 
-[^a]: Ooh no, the first line of this
-    first paragraph is still wrapped
-    too wide unfortunately. Should fix
-    this.
+[^a]: Ooh no, the first line of this first
+    paragraph is still wrapped too wide
+    unfortunately. Should fix this.
 
     But this second paragraph is wrapped
     exactly as expected. Woohooo,
