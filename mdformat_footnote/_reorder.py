@@ -9,8 +9,8 @@ def reorder_footnotes_by_definition(state: StateCore) -> None:
     """Reorder footnotes to match definition order and normalize subIds.
 
     The mdit-py-plugins footnote plugin assigns IDs and subIds based on the
-    order references are encountered during inline parsing. This causes HTML
-    to differ when footnote definitions are reordered by the formatter.
+    order the references are encountered during inline parsing. This causes
+    HTML to differ when footnote definitions are reordered by the formatter
 
     This rule:
     1. Preserves orphan footnotes (defined but never referenced)

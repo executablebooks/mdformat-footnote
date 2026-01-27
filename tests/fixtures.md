@@ -56,11 +56,11 @@ Empty footnote
 .
 Here is a footnote reference [^emptynote]
 
-[^emptynote]:
+[^emptynote]: 
 .
 Here is a footnote reference [^emptynote]
 
-[^emptynote]:
+[^emptynote]: 
 .
 
 
