@@ -192,6 +192,12 @@ Footnote in table nested in admonition (issue #22)
 [^2]: Green
 
 [^3]: Blue
+
+[^4]: Cyan
+
+[^5]: Magenta
+
+[^6]: Yellow
 .
 
 

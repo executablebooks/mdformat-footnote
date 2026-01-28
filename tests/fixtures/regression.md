@@ -87,6 +87,12 @@ Issue 22: nested in admonition
 [^2]: Green
 
 [^3]: Blue
+
+[^4]: Cyan
+
+[^5]: Magenta
+
+[^6]: Yellow
 .
 
 
