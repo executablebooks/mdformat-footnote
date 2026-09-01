@@ -16,6 +16,8 @@ def _get_options(filename: str, title: str) -> dict:
         return {"wrap": 40}
     if "keep orphans" in title.lower():
         return {"keep_orphans": True}
+    if "keep position" in title.lower() or filename == "keep_position.md":
+        return {"keep_position": True}
     return {}
 
 

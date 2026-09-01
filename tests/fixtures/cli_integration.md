@@ -12,3 +12,18 @@ Referenced [^used]
 
 [^orphan]: This is never referenced
 .
+
+CLI keep position flag test
+.
+Para one.[^a]
+
+[^a]: Definition A.
+
+Para two.
+.
+Para one.[^a]
+
+[^a]: Definition A.
+
+Para two.
+.

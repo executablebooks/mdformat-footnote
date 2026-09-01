@@ -40,8 +40,40 @@ def test_cli_keep_orphans_flag():
         assert output_keep.strip() == expected_keep.strip()
 
 
+def test_cli_keep_position_flag():
+    """Test --keep-footnote-position flag from command line."""
+    text, expected_keep = get_fixture(
+        "cli_integration.md", "CLI keep position flag test"
+    )
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        input_file = Path(tmpdir) / "test.md"
+        input_file.write_text(text)
+
+        # Default behavior: move definitions to the end of the document
+        result = subprocess.run(
+            ["python", "-m", "mdformat", str(input_file)],
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0
+        output_default = input_file.read_text()
+        assert output_default.strip() != expected_keep.strip()
+
+        # With --keep-footnote-position: preserve source position
+        input_file.write_text(text)  # Reset file
+        result = subprocess.run(
+            ["python", "-m", "mdformat", "--keep-footnote-position", str(input_file)],
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0
+        output_keep = input_file.read_text()
+        assert output_keep.strip() == expected_keep.strip()
+
+
 def test_cli_help_shows_option():
-    """Test that --keep-footnote-orphans appears in help."""
+    """Test that --keep-footnote-orphans and --keep-footnote-position appear in help."""
     result = subprocess.run(
         ["python", "-m", "mdformat", "--help"],
         capture_output=True,
@@ -49,3 +81,4 @@ def test_cli_help_shows_option():
     )
     assert result.returncode == 0
     assert "--keep-footnote-orphans" in result.stdout
+    assert "--keep-footnote-position" in result.stdout
