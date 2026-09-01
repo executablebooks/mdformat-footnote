@@ -107,10 +107,27 @@ def _collect_nested_refs(token, ref_set: set[str]) -> None:
         _collect_nested_refs(child, ref_set)
 
 
+def _collect_body_ref_order(body_refs: list) -> dict[str, int]:
+    """Map each label to the index of its first genuine body-level reference.
+
+    Only `body_refs` (references outside any footnote definition) are
+    considered: a footnote's raw parse-assigned id can be contaminated by an
+    earlier *nested* occurrence (e.g. referenced from within another
+    footnote's definition, which may sit before the real body reference in
+    source), so it isn't safe to sort by id directly.
+    """
+    order: dict[str, int] = {}
+    for token in body_refs:
+        label = token.meta["label"]
+        order.setdefault(label, len(order))
+    return order
+
+
 def _categorize_footnotes(
     refs: dict,
     footnote_deps: dict[str, set[str]],
     refs_in_fences: list[str],
+    body_ref_order: dict[str, int],
 ) -> _FootnoteCategories:
     """Categorize footnotes."""
     referenced_by_footnotes: set[str] = set()
@@ -127,7 +144,7 @@ def _categorize_footnotes(
     for label_key, old_id in refs.items():
         label = label_key[1:]
         match (
-            old_id >= 0,
+            label in body_ref_order,
             label in referenced_by_footnotes,
             label in refs_in_fences_set,
         ):
@@ -140,7 +157,10 @@ def _categorize_footnotes(
             case _:
                 true_orphans.append(label_key)
 
-    body_referenced.sort(key=lambda x: x[0])
+    # Sort by genuine body-reference position, not old_id: old_id reflects raw
+    # parse order, which a nested pre-occurrence can put ahead of the real
+    # body reference.
+    body_referenced.sort(key=lambda x: body_ref_order[x[2]])
     fence_only = [label for label in refs_in_fences if label in fence_only_set]
 
     return _FootnoteCategories(body_referenced, nested_only, fence_only, true_orphans)
@@ -226,9 +246,10 @@ def _assign_subids_to_refs(ref_tokens: list, counters: dict[int, int]) -> None:
         counters[fn_id] = counters.get(fn_id, 0) + 1
 
 
-def _reassign_subids(tokens: list, refs: dict, footnote_list: dict) -> None:
+def _reassign_subids(
+    body_refs: list, def_refs: dict[str, list], refs: dict, footnote_list: dict
+) -> None:
     """Reassign subIds based on output order: body refs first, then definition refs."""
-    body_refs, def_refs = _partition_refs_by_context(tokens)
     subid_counters: dict[int, int] = {}
 
     _assign_subids_to_refs(body_refs, subid_counters)
@@ -270,7 +291,11 @@ def reorder_footnotes_by_definition(
     refs, old_list = data
     footnote_deps = _build_dependency_graph(state.tokens)
     refs_in_fences = _collect_refs_in_fences(state.tokens)
-    categories = _categorize_footnotes(refs, footnote_deps, refs_in_fences)
+    body_refs, def_refs = _partition_refs_by_context(state.tokens)
+    body_ref_order = _collect_body_ref_order(body_refs)
+    categories = _categorize_footnotes(
+        refs, footnote_deps, refs_in_fences, body_ref_order
+    )
 
     if not keep_orphans:
         for orphan_key in categories.true_orphans:
@@ -282,4 +307,4 @@ def reorder_footnotes_by_definition(
 
     state.env["footnotes"]["list"] = reorder_state.new_list
     _update_token_ids(state.tokens, reorder_state.old_to_new_id)
-    _reassign_subids(state.tokens, refs, reorder_state.new_list)
+    _reassign_subids(body_refs, def_refs, refs, reorder_state.new_list)
