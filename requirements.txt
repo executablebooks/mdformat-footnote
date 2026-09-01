@@ -1,5 +1,5 @@
 flit>=3.12.0
-tox>=4.56.1
+tox>=4.61.1
 pytest>=9.1.1
 mdformat >=0.7.0
 mdit_py_plugins >=0.4.0
