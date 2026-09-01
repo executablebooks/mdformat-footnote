@@ -11,6 +11,7 @@ from mdformat.renderer.typing import Render
 from mdit_py_plugins.footnote import footnote_plugin
 
 from ._helpers import ContextOptions, get_conf
+from ._position import strip_orphan_footnotes
 from ._reorder import reorder_footnotes_by_definition
 
 
@@ -58,11 +59,13 @@ def update_mdit(mdit: MarkdownIt) -> None:
     # Disable inline footnotes for now, since we don't have rendering
     # support for them yet.
     mdit.disable("footnote_inline")
+    keep_orphans = _keep_orphans(mdit.options)
     if keep_position:
+        strip_fn = partial(strip_orphan_footnotes, keep_orphans=keep_orphans)
+        mdit.core.ruler.after("inline", "strip_orphan_footnotes", strip_fn)
         return
     # Reorder footnotes by reference order, fix IDs, and handle orphans.
     # Must run before footnote_tail, which only exists when move_to_end is set.
-    keep_orphans = _keep_orphans(mdit.options)
     reorder_fn = partial(reorder_footnotes_by_definition, keep_orphans=keep_orphans)
     mdit.core.ruler.before("footnote_tail", "reorder_footnotes", reorder_fn)
 
