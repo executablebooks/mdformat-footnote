@@ -19,6 +19,11 @@ def _keep_orphans(options: ContextOptions) -> bool:
     return bool(get_conf(options, "keep_orphans")) or False
 
 
+def _keep_position(options: ContextOptions) -> bool:
+    """Check if footnote definitions should stay at their source position."""
+    return bool(get_conf(options, "keep_position")) or False
+
+
 def add_cli_argument_group(group: argparse._ArgumentGroup) -> None:
     """Add options to the mdformat CLI.
 
@@ -34,16 +39,29 @@ def add_cli_argument_group(group: argparse._ArgumentGroup) -> None:
             "(default: remove them)"
         ),
     )
+    group.add_argument(
+        "--keep-footnote-position",
+        action="store_const",
+        const=True,
+        dest="keep_position",
+        help=(
+            "Keep footnote definitions at their source position "
+            "(default: move them to the end of the document)"
+        ),
+    )
 
 
 def update_mdit(mdit: MarkdownIt) -> None:
     """Update the parser, adding the footnote plugin."""
-    mdit.use(footnote_plugin)
+    keep_position = _keep_position(mdit.options)
+    mdit.use(footnote_plugin, move_to_end=not keep_position)
     # Disable inline footnotes for now, since we don't have rendering
     # support for them yet.
     mdit.disable("footnote_inline")
+    if keep_position:
+        return
     # Reorder footnotes by reference order, fix IDs, and handle orphans.
-    # Must run before footnote_tail.
+    # Must run before footnote_tail, which only exists when move_to_end is set.
     keep_orphans = _keep_orphans(mdit.options)
     reorder_fn = partial(reorder_footnotes_by_definition, keep_orphans=keep_orphans)
     mdit.core.ruler.before("footnote_tail", "reorder_footnotes", reorder_fn)
@@ -89,6 +107,7 @@ def _render_children(node: RenderTreeNode, context: RenderContext) -> str:
 
 RENDERERS: Mapping[str, Render] = {
     "footnote": _footnote_renderer,
+    "footnote_reference": _footnote_renderer,
     "footnote_ref": _footnote_ref_renderer,
     "footnote_block": _render_children,
 }
