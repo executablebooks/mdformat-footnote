@@ -241,11 +241,35 @@ Start [^a]
 .
 Start [^a]
 
+[^a]: References B [^b]
+
 [^b]: References C [^c]
 
 [^c]: Final one
+.
 
-[^a]: References B [^b]
+
+Nested footnote followed by an independent footnote (idempotency regression)
+.
+Nesting.[^outer]
+
+[^outer]: References [^inner].
+
+[^inner]: Independent.
+
+Later.[^c]
+
+[^c]: C.
+.
+Nesting.[^outer]
+
+Later.[^c]
+
+[^outer]: References [^inner].
+
+[^inner]: Independent.
+
+[^c]: C.
 .
 
 
@@ -293,12 +317,12 @@ Text [^outer]
 .
 Text [^outer]
 
-[^inner]: Inner content
-
 [^outer]: List item:
 
     - Item with [^inner] reference
     - Another item
+
+[^inner]: Inner content
 .
 
 
@@ -314,11 +338,11 @@ Body: [^3] [^2] [^1]
 .
 Body: [^3] [^2] [^1]
 
-[^1]: First
+[^3]: Third with [^2] and [^1]
 
 [^2]: Second with [^1]
 
-[^3]: Third with [^2] and [^1]
+[^1]: First
 .
 
 
@@ -334,11 +358,11 @@ Body [^a] [^b] [^c]
 .
 Body [^a] [^b] [^c]
 
-[^c]: Defined first
+[^a]: Defined third [^b]
 
 [^b]: Defined second [^c]
 
-[^a]: Defined third [^b]
+[^c]: Defined first
 .
 
 
@@ -370,9 +394,9 @@ Body [^m] [^a] [^z] [^m]
 .
 Body [^m] [^a] [^z] [^m]
 
-[^a]: First defined [^m]
-
 [^m]: Middle defined
+
+[^a]: First defined [^m]
 
 [^z]: Last defined [^a]
 .
@@ -389,11 +413,11 @@ Text [^outer]
 .
 Text [^outer]
 
-[^inner]: Inner note
-
 [^outer]: Quote:
 
     > Blockquote with [^inner]
+
+[^inner]: Inner note
 .
 
 
@@ -409,11 +433,11 @@ Start [^3]
 .
 Start [^3]
 
-[^1]: Level 1
+[^3]: Level 3 [^2]
 
 [^2]: Level 2 [^1]
 
-[^3]: Level 3 [^2]
+[^1]: Level 1
 .
 
 
@@ -431,9 +455,9 @@ Body [^used-second] [^used-first]
 .
 Body [^used-second] [^used-first]
 
-[^used-first]: Used
-
 [^used-second]: Also used [^used-first]
+
+[^used-first]: Used
 .
 
 
