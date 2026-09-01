@@ -14,11 +14,13 @@ def _get_options(filename: str, title: str) -> dict:
         if match := re.search(r"wrap at (\d+)", title):
             return {"wrap": int(match.group(1))}
         return {"wrap": 40}
-    if "keep orphans" in title.lower():
-        return {"keep_orphans": True}
-    if "keep position" in title.lower() or filename == "keep_position.md":
-        return {"keep_position": True}
-    return {}
+    lowered = title.lower()
+    options: dict = {}
+    if "keep orphans" in lowered:
+        options["keep_orphans"] = True
+    if "keep position" in lowered or filename == "keep_position.md":
+        options["keep_position"] = True
+    return options
 
 
 # Load all fixture files

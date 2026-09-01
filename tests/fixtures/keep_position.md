@@ -57,3 +57,65 @@ Body text.[^a]
 
 [^b]: Second.
 .
+
+Orphan footnote removed while keeping position
+.
+Body text.[^used]
+
+[^used]: This is used.
+
+[^orphan]: This is never referenced.
+.
+Body text.[^used]
+
+[^used]: This is used.
+.
+
+Orphan footnote kept when keep orphans is also set
+.
+Body text.[^used]
+
+[^used]: This is used.
+
+[^orphan]: This is never referenced.
+.
+Body text.[^used]
+
+[^used]: This is used.
+
+[^orphan]: This is never referenced.
+.
+
+Fence-referenced footnote not treated as orphan while keeping position
+.
+Body text.
+
+```text
+See [^fenced] in the fence.
+```
+
+[^fenced]: Referenced only inside a code fence.
+.
+Body text.
+
+```text
+See [^fenced] in the fence.
+```
+
+[^fenced]: Referenced only inside a code fence.
+.
+
+Nested-only footnote not treated as orphan while keeping position
+.
+Body text.[^a]
+
+[^a]: References a nested-only footnote.[^nested]
+
+[^nested]: Never referenced from the body directly.
+.
+Body text.[^a]
+
+[^a]: References a nested-only footnote.[^nested]
+
+[^nested]: Never referenced from the body directly.
+.
