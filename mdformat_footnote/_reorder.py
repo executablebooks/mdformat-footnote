@@ -11,7 +11,7 @@ _FOOTNOTE_REF_PATTERN = re.compile(r"\[\^([^\]]+)\]")
 
 
 @dataclass
-class _FootnoteCategories:
+class FootnoteCategories:
     """Categorized footnotes for reordering."""
 
     body_referenced: list[tuple[int, str, str]]
@@ -65,7 +65,7 @@ class _ReorderState:
         self.new_id += 1
 
 
-def _collect_refs_in_fences(tokens: list) -> list[str]:
+def collect_refs_in_fences(tokens: list) -> list[str]:
     """Collect footnote labels referenced in fence tokens, preserving order."""
     refs: list[str] = []
     seen: set[str] = set()
@@ -80,7 +80,7 @@ def _collect_refs_in_fences(tokens: list) -> list[str]:
     return refs
 
 
-def _build_dependency_graph(tokens: list) -> dict[str, set[str]]:
+def build_dependency_graph(tokens: list) -> dict[str, set[str]]:
     """Build a graph of which footnotes reference which others."""
     graph: dict[str, set[str]] = {}
     current_def_label: str | None = None
@@ -107,11 +107,11 @@ def _collect_nested_refs(token, ref_set: set[str]) -> None:
         _collect_nested_refs(child, ref_set)
 
 
-def _categorize_footnotes(
+def categorize_footnotes(
     refs: dict,
     footnote_deps: dict[str, set[str]],
     refs_in_fences: list[str],
-) -> _FootnoteCategories:
+) -> FootnoteCategories:
     """Categorize footnotes."""
     referenced_by_footnotes: set[str] = set()
     for refs_set in footnote_deps.values():
@@ -143,7 +143,7 @@ def _categorize_footnotes(
     body_referenced.sort(key=lambda x: x[0])
     fence_only = [label for label in refs_in_fences if label in fence_only_set]
 
-    return _FootnoteCategories(body_referenced, nested_only, fence_only, true_orphans)
+    return FootnoteCategories(body_referenced, nested_only, fence_only, true_orphans)
 
 
 def _process_nested_for_parent(
@@ -159,7 +159,7 @@ def _process_nested_for_parent(
 
 
 def _build_reordered_list(
-    categories: _FootnoteCategories,
+    categories: FootnoteCategories,
     footnote_deps: dict[str, set[str]],
     old_list: dict,
     refs: dict,
@@ -268,9 +268,9 @@ def reorder_footnotes_by_definition(
         return
 
     refs, old_list = data
-    footnote_deps = _build_dependency_graph(state.tokens)
-    refs_in_fences = _collect_refs_in_fences(state.tokens)
-    categories = _categorize_footnotes(refs, footnote_deps, refs_in_fences)
+    footnote_deps = build_dependency_graph(state.tokens)
+    refs_in_fences = collect_refs_in_fences(state.tokens)
+    categories = categorize_footnotes(refs, footnote_deps, refs_in_fences)
 
     if not keep_orphans:
         for orphan_key in categories.true_orphans:
