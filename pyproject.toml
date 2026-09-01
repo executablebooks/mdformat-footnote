@@ -1,13 +1,15 @@
 [build-system]
-requires = ["flit_core >=2,<4"]
+requires = ["flit_core >=4.0.2,<5"]
 build-backend = "flit_core.buildapi"
 
-[tool.flit.metadata]
-module = "mdformat_footnote"
-author = "Gaige B. Paulsen"
-author-email = "gaige@cluetrust.com"
-description-file = "README.md"
-home-page = "https://github.com/gaige/mdformat-footnote"
+[project]
+name = "mdformat_footnote"
+authors = [
+    {name = "Gaige B. Paulsen", email = "gaige@cluetrust.com"},
+]
+dynamic = ["version", "description"]
+readme = "README.md"
+requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -16,21 +18,23 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-keywords = "mdformat,markdown,markdown-it"
+keywords = ["mdformat", "markdown", "markdown-it"]
+dependencies = [
+    "mdformat >=0.7.0",
+    "mdit-py-plugins >=0.4.0",
+]
 
-requires-python=">=3.10"
-requires=["mdformat >=0.7.0",
-          "mdit-py-plugins >=0.4.0",
-            ]
+[project.urls]
+Home = "https://github.com/gaige/mdformat-footnote"
 
-[tool.flit.metadata.requires-extra]
+[project.optional-dependencies]
 test = [
     "pytest>=8.0.0",
     "pytest-cov>=7.0.0",
 ]
 dev = ["pre-commit"]
 
-[tool.flit.entrypoints."mdformat.parser_extension"]
+[project.entry-points."mdformat.parser_extension"]
 footnote = "mdformat_footnote"
 
 [tool.flit.sdist]
