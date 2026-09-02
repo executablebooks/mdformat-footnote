@@ -1,0 +1,44 @@
+{
+    "$comment": "Downstream repos that pin mdformat-footnote and have markdown with footnote definitions. See canary.py's module docstring for how to add an entry.",
+    "repos": [
+        {
+            "name": "free-threaded-compatibility",
+            "url": "https://github.com/Quansight-Labs/free-threaded-compatibility",
+            "patterns": ["docs/**/*.md"],
+            "extensions": ["frontmatter", "mkdocs", "tables"]
+        },
+        {
+            "name": "headscale",
+            "url": "https://github.com/juanfont/headscale",
+            "patterns": ["docs/**/*.md"],
+            "extensions": ["frontmatter", "mkdocs"]
+        },
+        {
+            "name": "ruff",
+            "url": "https://github.com/astral-sh/ruff",
+            "patterns": ["README.md", "crates/*/README.md"],
+            "extensions": ["mkdocs"]
+        },
+        {
+            "name": "specifications",
+            "url": "https://github.com/mongodb/specifications",
+            "patterns": ["docs/**/*.md", "source/**/*.md"],
+            "excludes": ["source/extended-json/extended-json.md"],
+            "options": {"wrap": 120, "number": true},
+            "extensions": ["frontmatter", "gfm", "gfm_alerts", "mkdocs"]
+        },
+        {
+            "name": "spyglass",
+            "url": "https://github.com/LorenFrankLab/spyglass",
+            "patterns": ["docs/**/*.md", "maintenance_scripts/*.md"],
+            "options": {"wrap": 80, "number": true},
+            "extensions": ["gfm", "mkdocs"]
+        },
+        {
+            "name": "xls",
+            "url": "https://github.com/google/xls",
+            "patterns": ["docs_src/**/*.md"],
+            "extensions": ["gfm"]
+        }
+    ]
+}
