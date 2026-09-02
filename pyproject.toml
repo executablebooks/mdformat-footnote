@@ -39,7 +39,7 @@ footnote = "mdformat_footnote"
 
 [tool.flit.sdist]
 include = []
-exclude = [".github/", "tests/"]
+exclude = [".github/", "scripts/", "tests/"]
 
 [tool.isort]
 # Force imports to be sorted by module, independent of import type

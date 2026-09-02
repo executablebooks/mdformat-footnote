@@ -49,6 +49,17 @@ To run the pre-commit hook test:
 tox -e py310-hook
 ```
 
+### Canary Testing
+
+The canary env clones real downstream repositories that pin `mdformat-footnote` and checks that formatting their docs is idempotent, never crashes, never drops a referenced footnote definition, and does not introduce new markup escapes. It needs network access and is not part of the default `tox` run:
+
+```bash
+tox -e canary            # all repos
+tox -e canary -- ruff    # a single repo, to isolate a failure
+```
+
+Clones are cached under `.tox/canary/cache/`; `tox -e canary --recreate` clears them. Repositories are configured in [`scripts/canary_repos.json`](scripts/canary_repos.json), and [`scripts/canary.py`](scripts/canary.py) documents how to add one. Each entry mirrors the mdformat arguments and plugin set that repository actually runs, so a canary failure means a real downstream break rather than a difference in configuration.
+
 ## Publish to PyPi
 
 Publishing is handled using a trusted action as part of the release process. Authentication is via OIDC
